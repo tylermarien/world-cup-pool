@@ -10,11 +10,6 @@ use App\Http\Requests\Api\EntryPlayerRequest;
 class EntryPlayerController extends Controller
 {
     /**
-     * @var \App\Entry
-     */
-    protected $entry;
-
-    /**
      * @var \App\Player
      */
     protected $player;
@@ -22,14 +17,12 @@ class EntryPlayerController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param \App\Entry  $entry
      * @param \App\Player $player
      *
      * @return void
      */
-    public function __construct(Entry $entry, Player $player)
+    public function __construct(Player $player)
     {
-        $this->entry = $entry;
         $this->player = $player;
     }
 
