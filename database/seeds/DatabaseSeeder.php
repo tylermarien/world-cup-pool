@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,10 +17,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test Pool',
         ]);
 
+        $now = Carbon::now()->format('Y-m-d H:i:s');
         $entry_id = DB::table('entries')->insert([
             'pool_id' => $pool_id,
             'name' => 'Tyler Marien',
             'total' => 0,
+            'created_at' => $now,
+            'updated_at' => $now,
         ]);
 
         DB::table('teams')->get()->random(13)->each(function ($team) use ($entry_id) {
