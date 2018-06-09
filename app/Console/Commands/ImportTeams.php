@@ -45,7 +45,7 @@ class ImportTeams extends Command
     {
         parent::__construct();
 
-        $this->db = $manager->connection('sqlite');
+        $this->db = $manager->connection();
         $this->sportdb = $manager->connection('sportdb');
     }
 
