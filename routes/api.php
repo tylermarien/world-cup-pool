@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +14,7 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->middleware('auth:api')->group(function () {
     Route::apiResource('entries', 'EntryController');
     Route::apiResource('entries.players', 'EntryPlayerController')->except(['update', 'destroy']);
+    Route::apiResource('entries.teams', 'EntryTeamController')->except(['update', 'destroy']);
     Route::apiResource('players', 'PlayerController');
     Route::apiResource('pools', 'PoolController');
     Route::apiResource('teams', 'TeamController');
