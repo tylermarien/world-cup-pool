@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($user) {
+            if (!$user->api_token) {
+                $user->api_token = str_random(64);
+            }
+        });
+    }
 }
