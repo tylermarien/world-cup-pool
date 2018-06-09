@@ -13,17 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+
         $pool_id = DB::table('pools')->insert([
             'name' => 'Test Pool',
+            'created_at' => $now,
+            'updated_at' => $now,
         ]);
 
-        $now = Carbon::now()->format('Y-m-d H:i:s');
         $entry_id = DB::table('entries')->insert([
             'pool_id' => $pool_id,
             'name' => 'Tyler Marien',
             'total' => 0,
-            'created_at' => $now,
-            'updated_at' => $now,
         ]);
 
         DB::table('teams')->get()->random(13)->each(function ($team) use ($entry_id) {
