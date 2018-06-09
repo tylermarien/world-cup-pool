@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Team;
-use App\Entry;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\EntryTeamRequest;
 
 class EntryTeamController extends Controller
 {
@@ -36,27 +34,6 @@ class EntryTeamController extends Controller
     public function index($entry)
     {
         return $this->team->enteredBy($entry)->paginate();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Http\Requests\Api\EntryTeamRequest $request
-     * @param \App\Entry                                $entry
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function store(EntryTeamRequest $request, Entry $entry)
-    {
-        $entry->teams()->delete();
-
-        $teams = $request->input('teams');
-
-        foreach ($teams as $team) {
-            $entry->teams()->create(['team_id' => $team]);
-        }
-
-        return $entry->fresh('teams');
     }
 
     /**

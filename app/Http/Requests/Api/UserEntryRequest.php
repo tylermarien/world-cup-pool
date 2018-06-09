@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Api;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 
-class EntryPlayerRequest extends FormRequest
+class UserEntryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +27,14 @@ class EntryPlayerRequest extends FormRequest
     {
         return [
             'players' => 'required|array|size:26',
-            'players.*' => 'required|integer|exists:players,id',
+            'players.*' => [
+                'required',
+                Rule::exists('players')->where(function (Builder $query) {
+                    $query->whereIn('team_id', $this->input('teams'));
+                }),
+            ],
+            'teams' => 'required|array|size:13',
+            'teams.*' => 'required|integer|exists:teams,id',
         ];
     }
 }

@@ -13,9 +13,10 @@
 
 Route::namespace('Api')->middleware('auth:api')->group(function () {
     Route::apiResource('entries', 'EntryController');
-    Route::apiResource('entries.players', 'EntryPlayerController')->except(['update', 'destroy']);
-    Route::apiResource('entries.teams', 'EntryTeamController')->except(['update', 'destroy']);
+    Route::apiResource('entries.players', 'EntryPlayerController')->only(['index', 'show']);
+    Route::apiResource('entries.teams', 'EntryTeamController')->only(['index', 'show']);
     Route::apiResource('players', 'PlayerController');
     Route::apiResource('pools', 'PoolController');
     Route::apiResource('teams', 'TeamController');
+    Route::post('users/entries/{entry}')->name('users.entries.store')->uses('UserEntryController@store');
 });
