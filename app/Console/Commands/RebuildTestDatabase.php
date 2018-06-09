@@ -38,9 +38,7 @@ class RebuildTestDatabase extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate:fresh', [
-            '--database' => 'sportdb',
-        ]);
+        Artisan::call('migrate:fresh');
         Artisan::call('import:teams');
         Artisan::call('db:seed');
     }
