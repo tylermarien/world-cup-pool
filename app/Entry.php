@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Player[] $players
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Team[] $teams
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereName($value)
@@ -43,5 +44,15 @@ class Entry extends Model
     public function players()
     {
         return $this->hasMany(Player::class);
+    }
+
+    /**
+     * Return an entry's related team records.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
     }
 }

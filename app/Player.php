@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Traits\Enterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Player extends Model
 {
+    use Enterable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,25 +35,6 @@ class Player extends Model
         'team_id',
         'name',
     ];
-
-    /**
-     * Scope the query to return players that were entered by a given entry.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \App\Entry|int                        $entry
-     *
-     * @return void
-     */
-    public function scopeEnteredBy(Builder $query, $entry)
-    {
-        if ($entry instanceof Entry) {
-            $entry = $entry->getKey();
-        }
-
-        $query->whereHas('entry', function (Builder $query) use ($entry) {
-            $query->where('id', $entry);
-        });
-    }
 
     /**
      * Return a player's related entry records.

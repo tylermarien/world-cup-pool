@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Player;
+use App\Team;
 use App\Http\Controllers\Controller;
 
-class EntryPlayerController extends Controller
+class EntryTeamController extends Controller
 {
     /**
-     * @var \App\Player
+     * @var \App\Team
      */
-    protected $player;
+    protected $team;
 
     /**
      * Create a new controller instance.
      *
-     * @param \App\Player $player
+     * @param \App\Team $team
      *
      * @return void
      */
-    public function __construct(Player $player)
+    public function __construct(Team $team)
     {
-        $this->player = $player;
+        $this->team = $team;
     }
 
     /**
@@ -33,19 +33,19 @@ class EntryPlayerController extends Controller
      */
     public function index($entry)
     {
-        return $this->player->enteredBy($entry)->paginate();
+        return $this->team->enteredBy($entry)->paginate();
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $entry
-     * @param int $player
+     * @param int $team
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function show($entry, $player)
+    public function show($entry, $team)
     {
-        return $this->player->enteredBy($entry)->findOrFail($player);
+        return $this->team->enteredBy($entry)->findOrFail($team);
     }
 }
