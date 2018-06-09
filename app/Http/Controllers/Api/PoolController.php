@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Pool;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PoolRequest;
 
 class PoolController extends Controller
 {
@@ -39,11 +39,11 @@ class PoolController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Api\PoolRequest $request
      *
      * @return \App\Pool|\Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(PoolRequest $request)
     {
         return $this->pool->create($request->all());
     }
@@ -63,12 +63,12 @@ class PoolController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \App\Http\Requests\Api\PoolRequest $request
+     * @param int                                $id
      *
      * @return \App\Pool|\Illuminate\Database\Eloquent\Model
      */
-    public function update(Request $request, $id)
+    public function update(PoolRequest $request, $id)
     {
         $pool = $this->pool->findOrFail($id);
 

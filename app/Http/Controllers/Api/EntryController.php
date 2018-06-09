@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Entry;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\EntryRequest;
 
 class EntryController extends Controller
 {
@@ -39,11 +39,11 @@ class EntryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Api\EntryRequest $request
      *
      * @return \App\Entry|\Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(EntryRequest $request)
     {
         return $this->entry->create($request->all());
     }
@@ -63,12 +63,12 @@ class EntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \App\Http\Requests\Api\EntryRequest $request
+     * @param int                                 $id
      *
      * @return \App\Entry|\Illuminate\Database\Eloquent\Model
      */
-    public function update(Request $request, $id)
+    public function update(EntryRequest $request, $id)
     {
         $entry = $this->entry->findOrFail($id);
 

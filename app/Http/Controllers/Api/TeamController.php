@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Team;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\TeamRequest;
 
 class TeamController extends Controller
 {
@@ -39,13 +39,13 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Api\TeamRequest $request
      *
      * @return \App\Team|\Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
-        return $this->team->create($request->all());
+        return $this->team->create($request->validated());
     }
 
     /**
@@ -63,16 +63,16 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \App\Http\Requests\Api\TeamRequest $request
+     * @param int                                $id
      *
      * @return \App\Team|\Illuminate\Database\Eloquent\Model
      */
-    public function update(Request $request, $id)
+    public function update(TeamRequest $request, $id)
     {
         $team = $this->team->findOrFail($id);
 
-        $team->update($request->all());
+        $team->update($request->validated());
 
         return $team;
     }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Player;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PlayerRequest;
 
 class PlayerController extends Controller
 {
@@ -39,13 +39,13 @@ class PlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Api\PlayerRequest $request
      *
      * @return \App\Player|\Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(PlayerRequest $request)
     {
-        return $this->player->create($request->all());
+        return $this->player->create($request->validated());
     }
 
     /**
@@ -63,12 +63,12 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \App\Http\Requests\Api\PlayerRequest $request
+     * @param int                                  $id
      *
      * @return \App\Player|\Illuminate\Database\Eloquent\Model
      */
-    public function update(Request $request, $id)
+    public function update(PlayerRequest $request, $id)
     {
         $player = $this->player->findOrFail($id);
 
