@@ -1,0 +1,88 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (5.2.0)
+      activesupport (= 5.2.0)
+    activerecord (5.2.0)
+      activemodel (= 5.2.0)
+      activesupport (= 5.2.0)
+      arel (>= 9.0)
+    activerecord-utils (0.4.0)
+      activerecord
+      logutils
+    activesupport (5.2.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    arel (9.0.0)
+    concurrent-ruby (1.0.5)
+    datafile (0.2.5)
+      fetcher
+      logutils
+      textutils
+    fetcher (0.4.5)
+      logutils (>= 0.6)
+    gli (2.17.1)
+    i18n (1.0.1)
+      concurrent-ruby (~> 1.0)
+    iniparser (0.1.0)
+    logutils (0.6.1)
+    logutils-activerecord (0.2.1)
+      activerecord
+      logutils (>= 0.6.1)
+    minitest (5.11.3)
+    persondb-models (0.5.0)
+      worlddb-models
+    props (1.2.0)
+      iniparser (>= 0.1.0)
+    props-activerecord (0.2.0)
+      activerecord
+      props (>= 1.2.0)
+    rubyzip (1.2.1)
+    sportdb (1.11.0)
+      datafile (>= 0.1.1)
+      fetcher (>= 0.4.4)
+      gli (>= 2.12.2)
+      sportdb-models (>= 1.10.1)
+      sportdb-service
+      sportdb-update
+      sqlite3
+    sportdb-models (1.17.0)
+      persondb-models (>= 0.4.2)
+      worlddb-models (>= 2.1.0)
+    sportdb-service (0.4.0)
+    sportdb-update (0.1.1)
+    sqlite3 (1.3.13)
+    tagutils (1.0.0)
+      activerecord
+      logutils (>= 0.6.1)
+      props (>= 1.2.0)
+      textutils (>= 1.4.0)
+    textutils (1.4.0)
+      activesupport
+      logutils (>= 0.6.1)
+      props (>= 1.1.2)
+      rubyzip (>= 1.0.0)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    worlddb-models (2.4.0)
+      activerecord
+      activerecord-utils (>= 0.4.0)
+      logutils (>= 0.6.1)
+      logutils-activerecord (>= 0.2.1)
+      props (>= 1.2.0)
+      props-activerecord (>= 0.2.0)
+      rubyzip
+      tagutils (>= 1.0.0)
+      textutils (>= 1.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sportdb
+
+BUNDLED WITH
+   1.16.1
