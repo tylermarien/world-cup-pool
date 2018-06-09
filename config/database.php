@@ -39,6 +39,12 @@ return [
             'prefix' => '',
         ],
 
+        'sportdb' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_SPORT', base_path('sport.db')),
+            'prefix' => '',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
