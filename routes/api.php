@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->middleware('auth:api')->group(function () {
     Route::resource('entries', 'EntryController')->except(['create', 'edit']);
     Route::resource('players', 'PlayerController')->except(['create', 'edit']);
+    Route::resource('teams', 'TeamController')->except(['create', 'edit']);
 });
