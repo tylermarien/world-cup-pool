@@ -58,7 +58,7 @@ class Team extends Model
      *
      * @return int
      */
-    public function calculateHomeGamesPlayed()
+    private function calculateHomeGamesPlayed()
     {
         return $this->homeGames->filter(function ($game) {
             return $game->isOver();
@@ -70,7 +70,7 @@ class Team extends Model
      *
      * @return int
      */
-    public function calculateAwayGamesPlayed()
+    private function calculateAwayGamesPlayed()
     {
         return $this->awayGames->filter(function ($game) {
             return $game->isOver();
@@ -126,7 +126,7 @@ class Team extends Model
      *
      * @return boolean
      */
-    public function calculateHomeTies()
+    private function calculateHomeTies()
     {
         return $this->homeGames->filter(function ($game) {
             return $game->isTie();
@@ -138,7 +138,7 @@ class Team extends Model
      *
      * @return boolean
      */
-    public function calculateAwayTies()
+    private function calculateAwayTies()
     {
         return $this->awayGames->filter(function ($game) {
             return $game->isTie();
@@ -153,9 +153,9 @@ class Team extends Model
     public function calculateGoalDifferential()
     {
         return $this->homeGames->sum(function ($game) {
-            return $game->score1 - $game->score2;
+            return ($game->score1 + $game->score1et) - ($game->score2 + $game->score2et);
         }) + $this->awayGames->sum(function ($game) {
-            return $game->score2 - $game->score1;
+            return ($game->score2 + $game->score2et) - ($game->score1 + $game->score1et);
         });
     }
 
