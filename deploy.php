@@ -15,7 +15,7 @@ set('repository', 'git@github.com:tylermarien/world-cup-pool.git');
 set('git_tty', true);
 
 // Shared files/dirs between deploys
-add('shared_files', []);
+add('shared_files', ['sport.db']);
 add('shared_dirs', []);
 
 // Writable dirs by web server
@@ -33,12 +33,17 @@ task('build', function () {
     run('cd {{release_path}} && yarn run prod');
 });
 
+task('bundle', function () {
+    run('cd {{release_path}} && bundle install --path vendor/bundle');
+});
+
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
+after('deploy:update_code', 'bundle');
 after('deploy:update_code', 'yarn:install');
 after('deploy:update_code', 'build');
 before('deploy:symlink', 'artisan:migrate');
