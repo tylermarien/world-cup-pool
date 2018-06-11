@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Collection;
+use App\SportsDb\Team as SportsDbTeam;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +27,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Entry extends Model
 {
+    const POINTS_TEAM_GAMES_PLAYED = 1;
+    const POINTS_TEAM_WIN = 4;
+    const POINTS_TEAM_TIE = 2;
+    const POINTS_TEAM_GOAL_DIFFERENTIAL = 1;
+    const POINTS_TEAM_SHOOTOUT_WIN = 1;
+    const POINTS_TEAM_SHUTOUT = 1;
+    const POINTS_TEAM_FIRST_IN_GROUP = 4;
+    const POINTS_TEAM_SECOND_IN_GROUP = 2;
+    const POINTS_TEAM_THIRD_IN_GROUP = 1;
+    const POINTS_TEAM_FIRST = 8;
+    const POINTS_TEAM_SECOND = 5;
+    const POINTS_TEAM_THIRD = 3;
+
+    const POINTS_PLAYER_GOAL = 2;
+    const POINTS_PLAYER_SHOOTOUT_GOAL = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -53,6 +71,209 @@ class Entry extends Model
      */
     public function teams()
     {
-        return $this->hasMany(Team::class);
+        return $this->belongsToMany(Team::class);
+    }
+
+    /**
+     * Calcualte the total
+     *
+     * @return int
+     */
+    public function calculateTotal()
+    {
+        $teams = SportsDbTeam::whereIn('id', $this->teams->pluck('id'))->get();
+
+        return
+            ($this->calculateGamesPlayed($teams) * self::POINTS_TEAM_GAMES_PLAYED)
+            + ($this->calculateWins($teams) * self::POINTS_TEAM_WIN)
+            + ($this->calculateTies($teams) * self::POINTS_TEAM_TIE)
+            + ($this->calculateGoalDifferential($teams) * self::POINTS_TEAM_GOAL_DIFFERENTIAL)
+            + ($this->calculateShootoutWins($teams) * self::POINTS_TEAM_SHOOTOUT_WIN)
+            + ($this->calculateShutouts($teams) * self::POINTS_TEAM_SHUTOUT)
+            + ($this->calculateFirstInGroup($teams) * self::POINTS_TEAM_FIRST_IN_GROUP)
+            + ($this->calculateSecondInGroup($teams) * self::POINTS_TEAM_SECOND_IN_GROUP)
+            + ($this->calculateThirdInGroup($teams) * self::POINTS_TEAM_THIRD_IN_GROUP)
+            + ($this->calculateFirst($teams) * self::POINTS_TEAM_FIRST)
+            + ($this->calculateSecond($teams) * self::POINTS_TEAM_SECOND)
+            + ($this->calculateThird($teams) * self::POINTS_TEAM_THIRD)
+            + ($this->calculateGoals() * self::POINTS_PLAYER_GOAL)
+            + ($this->calculateShootoutGoals() * self::POINTS_PLAYER_SHOOTOUT_GOAL)
+        ;
+    }
+
+    /**
+     * Calculate the number of games played for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateGamesPlayed(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateGamesPlayed();
+        });
+    }
+
+    /**
+     * Calculate the number of games played for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateWins(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateWins();
+        });
+    }
+
+    /**
+     * Calculate the number of games played for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateTies(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateTies();
+        });
+    }
+
+    /**
+     * Calculate the goals differential for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateGoalDifferential(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateGoalDifferential();
+        });
+    }
+
+    /**
+     * Calculate the number of shootout wins for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateShootoutWins(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateShootoutWins();
+        });
+    }
+
+    /**
+     * Calculate the number of shutouts for this entry
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateShutouts(Collection $teams)
+    {
+        return $teams->sum(function ($team) {
+            return $team->calculateShutouts();
+        });
+    }
+
+    /**
+     * Calculate the number of first in groups
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateFirstInGroup(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of second in groups
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateSecondInGroup(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of third in groups
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateThirdInGroup(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of firsts
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateFirst(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of second in groups
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateSecond(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of third
+     *
+     * @param \Illuminate\Support\Collection $teams
+     *
+     * @return int
+     */
+    public function calculateThird(Collection $teams)
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of goals
+     *
+     * @return int
+     */
+    public function calculateGoals()
+    {
+        return 0;
+    }
+
+    /**
+     * Calculate the number of shootout goals
+     *
+     * @return int
+     */
+    public function calculateShootoutGoals()
+    {
+        return 0;
     }
 }
