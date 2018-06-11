@@ -24,16 +24,45 @@ class Game extends Model
      */
     protected $fillable = [
         'id',
+        'key',
+        'round_id',
+        'pos',
+        'group_id',
         'team1_id',
         'team2_id',
+        'play_at',
+        'postponed',
+        'play_at_v2',
+        'play_at_v3',
+        'ground_id',
+        'city_id',
+        'knockout',
+        'home',
         'score1',
         'score2',
         'score1et',
         'score2et',
         'score1p',
         'score2p',
+        'score1i',
+        'score2i',
+        'score1ii',
+        'score2ii',
+        'next_game_id',
+        'prev_game_id',
         'winner',
+        'winner90',
     ];
+
+    /**
+     * Return the Game's round
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function round()
+    {
+        return $this->belongsTo(Round::class);
+    }
 
     /**
      * Is the game over?
@@ -113,5 +142,25 @@ class Game extends Model
     public function isAwayTeamShutout()
     {
         return $this->isOver() && $this->score1 == 0 && $this->score1et == 0;
+    }
+
+    /**
+     * Is this game the final
+     *
+     * @return boolean
+     */
+    public function isFinal()
+    {
+        return $this->round->title == 'Final';
+    }
+
+    /**
+     * Is this game the third place game
+     *
+     * @return boolean
+     */
+    public function isThirdPlaceGame()
+    {
+        return $this->round->title == 'Match for third place';
     }
 }

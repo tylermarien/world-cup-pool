@@ -232,7 +232,11 @@ class Entry extends Model
      */
     public function calculateFirst(Collection $teams)
     {
-        return 0;
+        $first = $teams->contains(function ($team) {
+            return $team->finishedFirst();
+        });
+
+        return $first ? 1 : 0;
     }
 
     /**
@@ -244,7 +248,11 @@ class Entry extends Model
      */
     public function calculateSecond(Collection $teams)
     {
-        return 0;
+        $second = $teams->contains(function ($team) {
+            return $team->finshedSecond();
+        });
+
+        return $second ? 1 : 0;
     }
 
     /**
@@ -256,7 +264,11 @@ class Entry extends Model
      */
     public function calculateThird(Collection $teams)
     {
-        return 0;
+        $third = $teams->contains(function ($team) {
+            return $team->finishedThird();
+        });
+
+        return $third ? 1 : 0;
     }
 
     /**

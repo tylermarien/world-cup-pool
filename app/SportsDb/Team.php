@@ -186,4 +186,64 @@ class Team extends Model
             return $game->isAwayTeamShutout();
         })->count();
     }
+
+    /**
+     * Did this team finish first in the tournament
+     *
+     * @return boolean
+     */
+    public function finishedFirst()
+    {
+        $firsts = $this->homeGames->filter(function ($game) {
+            return $game->isFinal();
+        })->sum(function ($game) {
+            return $game->isHomeTeamVictory();
+        }) + $this->awayGames->filter(function ($game) {
+            return $game->isFinal();
+        })->sum(function ($game) {
+            return $game->isAwayTeamVictory();
+        });
+
+        return $firsts > 0;
+    }
+
+    /**
+     * Did this team finish second in the tournament
+     *
+     * @return boolean
+     */
+    public function finishedSecond()
+    {
+        $seconds = $this->homeGames->filter(function ($game) {
+            return $game->isFinal();
+        })->sum(function ($game) {
+            return $game->isAwayTeamVictory();
+        }) + $this->awayGames->filter(function ($game) {
+            return $game->isFinal();
+        })->sum(function ($game) {
+            return $game->isHomeTeamVictory();
+        });
+
+        return $seconds > 0;
+    }
+
+    /**
+     * Did this team finish first in the tournament
+     *
+     * @return boolean
+     */
+    public function finishedThird()
+    {
+        $thirds = $this->homeGames->filter(function ($game) {
+            return $game->isThirdPlaceGame();
+        })->sum(function ($game) {
+            return $game->isHomeTeamVictory();
+        }) + $this->awayGames->filter(function ($game) {
+            return $game->isThirdPlaceGame();
+        })->sum(function ($game) {
+            return $game->isAwayTeamVictory();
+        });
+
+        return $thirds > 0;
+    }
 }
