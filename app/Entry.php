@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Collection;
 use App\SportsDb\Team as SportsDbTeam;
 use Illuminate\Database\Eloquent\Model;
+use App\SportsDb\Person as SportsDbPerson;
 
 /**
  * App\Entry
@@ -61,7 +62,7 @@ class Entry extends Model
      */
     public function players()
     {
-        return $this->hasMany(Player::class);
+        return $this->belongsToMany(Player::class);
     }
 
     /**
@@ -82,6 +83,7 @@ class Entry extends Model
     public function calculateTotal()
     {
         $teams = SportsDbTeam::whereIn('id', $this->teams->pluck('id'))->get();
+        $persons = SportsDbPerson::whereIn('id', $this->players->pluck('id'))->get();
 
         return
             ($this->calculateGamesPlayed($teams) * self::POINTS_TEAM_GAMES_PLAYED)
@@ -96,8 +98,8 @@ class Entry extends Model
             + ($this->calculateFirst($teams) * self::POINTS_TEAM_FIRST)
             + ($this->calculateSecond($teams) * self::POINTS_TEAM_SECOND)
             + ($this->calculateThird($teams) * self::POINTS_TEAM_THIRD)
-            + ($this->calculateGoals() * self::POINTS_PLAYER_GOAL)
-            + ($this->calculateShootoutGoals() * self::POINTS_PLAYER_SHOOTOUT_GOAL)
+            + ($this->calculateGoals($persons) * self::POINTS_PLAYER_GOAL)
+            + ($this->calculateShootoutGoals($persons) * self::POINTS_PLAYER_SHOOTOUT_GOAL)
         ;
     }
 
@@ -260,19 +262,25 @@ class Entry extends Model
     /**
      * Calculate the number of goals
      *
+     * @param \Illuminate\Support\Collection $persons
+     *
      * @return int
      */
-    public function calculateGoals()
+    public function calculateGoals(Collection $persons)
     {
-        return 0;
+        return $persons->sum(function ($person) {
+            return $person->goals->count();
+        });
     }
 
     /**
      * Calculate the number of shootout goals
      *
+     * @param \Illuminate\Support\Collection $persons
+     *
      * @return int
      */
-    public function calculateShootoutGoals()
+    public function calculateShootoutGoals(Collection $persons)
     {
         return 0;
     }
