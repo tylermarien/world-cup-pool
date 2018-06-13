@@ -17,3 +17,6 @@ tmp
 .phpstorm.meta.php
 _ide_helper.php
 .DS_Store
+/public/mix-manifest.json
+/public/css
+/public/js
