@@ -24,7 +24,7 @@ set('allow_anonymous_stats', false);
 
 // Hosts
 
-host('worldcupdraft.xyz')
+host('deployer@worldcupdraft.xyz')
     ->set('deploy_path', '/var/www/world-cup-pool');
 
 // Tasks
