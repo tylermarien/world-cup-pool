@@ -5,6 +5,10 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
+var $ = require('jquery');
+
+require('jquery.easing')($);
+
 require('./bootstrap');
 
 /**
@@ -14,3 +18,5 @@ require('./bootstrap');
  */
 
 require('./components/Example');
+
+require('./components/Main');

@@ -16,3 +16,4 @@ tmp
 *.db
 .phpstorm.meta.php
 _ide_helper.php
+.DS_Store
