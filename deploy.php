@@ -24,8 +24,8 @@ set('allow_anonymous_stats', false);
 
 // Hosts
 
-host('deployer@worldcupdraft.xyz')
-    ->set('deploy_path', '/var/www/world-cup-pool');
+host('worldcupdraft.xyz', 'worldcuppool.xyz')
+    ->set('deploy_path', '/var/www/{{ hostname }}');
 
 // Tasks
 
@@ -37,6 +37,9 @@ task('bundle', function () {
     run('cd {{release_path}} && bundle install --path vendor/bundle');
 });
 
+task('permissions', function () {
+    run ('chgrp -R www-data {{release_path}}');
+});
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
@@ -46,5 +49,6 @@ after('deploy:failed', 'deploy:unlock');
 after('deploy:update_code', 'bundle');
 after('deploy:update_code', 'yarn:install');
 after('deploy:update_code', 'build');
+after('deploy:update_code', 'permissions');
 before('deploy:symlink', 'artisan:migrate');
 
