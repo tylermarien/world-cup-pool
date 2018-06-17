@@ -20,7 +20,7 @@ class WelcomeController extends Controller
             'first' => $entries->first(),
             'second' => $entries->get(2),
             'third' => $entries->get(3),
-            'entries' => $entries->slice(3),
+            'entries' => $entries->slice(4),
         ]);
     }
 }
