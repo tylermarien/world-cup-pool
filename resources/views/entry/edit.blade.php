@@ -31,7 +31,7 @@
                     @if($entry->players->contains($player->id))
                     <option value="{{ $player->id }}" selected>{{ $player->name }}</option>
                     @else
-                    <option value="{{ $player->id }}">{{ $player->name }}</option>
+                    <option value="{{ $player->id }}" data-team-id="{{ $player->team_id }}">{{ $player->name }}</option>
                     @endif
                     @endforeach
                 </select>
@@ -39,4 +39,34 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
+    <script type="text/javascript">
+        var $teamsEl = $('#teams');
+        var $playersEl = $('#players');
+
+        function togglePlayers() {
+            var teamIds = $teamsEl.val();
+            var allPlayers = $playersEl.children();
+            var playersOnSelectedTeams = allPlayers.filter(function (index, child) {
+                var teamId = "" + $(child).data('team-id');
+                return teamIds.indexOf(teamId) != -1;
+            });
+
+            allPlayers.each(function(index, child) {
+                var $child = $(child);
+                var teamId = "" + $child.data('team-id');
+
+                if (teamIds.indexOf(teamId) != -1) {
+                    $child.show();
+                } else {
+                    $child.hide();
+                }
+            });
+        }
+
+        $teamsEl.change(function (evt) {
+            togglePlayers();
+        });
+
+        togglePlayers();
+    </script>
 @endsection
