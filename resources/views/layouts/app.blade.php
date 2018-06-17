@@ -54,50 +54,6 @@
             </div>
         </nav>
 
-        <header class="masthead">
-            <div class="container masthead-custom-container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="featured gold">
-                            <img src="{{ asset('img/gold-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                                <p>{{ __('Name')  }} - <small>{{ __('100') }} pts</small></p>
-                            </div>
-                        </div>
-
-                        <div class="featured silver">
-                            <img src="{{ asset('img/silver-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                                <p>{{ __('Name')  }} - <small>{{ __('100') }} pts</small></p>
-                            </div>
-                        </div>
-
-                        <div class="featured bronze">
-                            <img src="{{ asset('img/bronze-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                                <p>{{ __('Name')  }} - <small>{{ __('100') }} pts</small></p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-8">
-                        <table class="table table-condensed">
-                            <thead>
-                            <th>Entry</th>
-                            <th class="text-right">Total</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="#details" class="js-scroll-trigger">{{ __('Name') }}</a></td>
-                                    <td class="text-right">{{ __('Total of points') }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <main class="py-4">
             @yield('content')
         </main>
