@@ -60,7 +60,7 @@
 
         <footer>
             <div class="container">
-                <p>&copy; World Cup Draft 2018 - <a href="https://coconutsoftware.com" target="_blank">Coconut Software Corporation</a> - All Rights Reserved.</p>
+                <p>&copy; World Cup Draft 2018 - All Rights Reserved.</p>
             </div>
         </footer>
 
