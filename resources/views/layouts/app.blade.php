@@ -37,12 +37,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        @if (Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                        @else
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>
