@@ -21,7 +21,7 @@ trait Enterable
             $entry = $entry->getKey();
         }
 
-        $query->whereHas('entry', function (Builder $query) use ($entry) {
+        $query->whereHas('entries', function (Builder $query) use ($entry) {
             $query->where('id', $entry);
         });
     }

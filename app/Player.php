@@ -39,10 +39,10 @@ class Player extends Model
     /**
      * Return a player's related entry records.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function entries()
     {
-        return $this->belongsTo(Entry::class);
+        return $this->belongsToMany(Entry::class);
     }
 }

@@ -33,6 +33,16 @@ class Team extends Model
     ];
 
     /**
+     * Return a team's related entry records.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function entries()
+    {
+        return $this->belongsToMany(Entry::class);
+    }
+
+    /**
      * Return an teams's related player records.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
