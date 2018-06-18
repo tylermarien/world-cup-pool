@@ -7,7 +7,7 @@
 
 var $ = require('jquery');
 
-require('jquery.easing')($);
+// require('jquery.easing')($);
 
 require('./bootstrap');
 
