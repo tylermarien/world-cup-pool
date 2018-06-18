@@ -27,46 +27,20 @@
             <div class="form-group">
                 <label for="players">Players</label>
                 <select multiple size="10" class="form-control" id="players" name="players[]">
-                    @foreach($players as $player)
-                    @if($entry->players->contains($player->id))
-                    <option value="{{ $player->id }}" data-team-id="{{ $player->team_id }}" selected>{{ $player->name }}</option>
-                    @else
-                    <option value="{{ $player->id }}" data-team-id="{{ $player->team_id }}">{{ $player->name }}</option>
-                    @endif
+                    @foreach($teams as $team) {
+                    <optgroup label="{{ $team->name }}">
+                        @foreach($team->players()->orderBy('name')->get() as $player)
+                        @if($entry->players->contains($player->id))
+                        <option value="{{ $player->id }}" selected>{{ $player->name }}</option>
+                        @else
+                        <option value="{{ $player->id }}">{{ $player->name }}</option>
+                        @endif
+                        @endforeach
                     @endforeach
+                    </optgroup>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
-    <script type="text/javascript">
-        var $teamsEl = $('#teams');
-        var $playersEl = $('#players');
-
-        function togglePlayers() {
-            var teamIds = $teamsEl.val();
-            var allPlayers = $playersEl.children();
-            var playersOnSelectedTeams = allPlayers.filter(function (index, child) {
-                var teamId = "" + $(child).data('team-id');
-                return teamIds.indexOf(teamId) != -1;
-            });
-
-            allPlayers.each(function(index, child) {
-                var $child = $(child);
-                var teamId = "" + $child.data('team-id');
-
-                if (teamIds.indexOf(teamId) != -1) {
-                    $child.show();
-                } else {
-                    $child.hide();
-                }
-            });
-        }
-
-        $teamsEl.change(function (evt) {
-            togglePlayers();
-        });
-
-        togglePlayers();
-    </script>
 @endsection
