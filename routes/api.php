@@ -11,12 +11,18 @@
 |
 */
 
-Route::namespace('Api')->middleware('auth:api')->group(function () {
-    Route::apiResource('entries', 'EntryController');
-    Route::apiResource('entries.players', 'EntryPlayerController')->only(['index', 'show']);
-    Route::apiResource('entries.teams', 'EntryTeamController')->only(['index', 'show']);
-    Route::apiResource('players', 'PlayerController');
-    Route::apiResource('pools', 'PoolController');
-    Route::apiResource('teams', 'TeamController');
-    Route::post('users/entries/{entry}')->name('users.entries.store')->uses('UserEntryController@store');
+Route::namespace('Api')->group(function () {
+    Route::get('entries/{id}', 'EntryController@show');
+    Route::get('entries/{id}/players', 'EntryPlayerController@index');
+    Route::get('entries/{id}/teams', 'EntryTeamController@index');
 });
+
+// Route::namespace('Api')->middleware('auth:api')->group(function () {
+//     Route::apiResource('entries', 'EntryController');
+//     Route::apiResource('entries.players', 'EntryPlayerController')->only(['index', 'show']);
+//     Route::apiResource('entries.teams', 'EntryTeamController')->only(['index', 'show']);
+//     Route::apiResource('players', 'PlayerController');
+//     Route::apiResource('pools', 'PoolController');
+//     Route::apiResource('teams', 'TeamController');
+//     Route::post('users/entries/{entry}')->name('users.entries.store')->uses('UserEntryController@store');
+// });
