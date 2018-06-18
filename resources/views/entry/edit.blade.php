@@ -29,7 +29,7 @@
                 <select multiple size="10" class="form-control" id="players" name="players[]">
                     @foreach($players as $player)
                     @if($entry->players->contains($player->id))
-                    <option value="{{ $player->id }}" selected>{{ $player->name }}</option>
+                    <option value="{{ $player->id }}" data-team-id="{{ $player->team_id }}" selected>{{ $player->name }}</option>
                     @else
                     <option value="{{ $player->id }}" data-team-id="{{ $player->team_id }}">{{ $player->name }}</option>
                     @endif
