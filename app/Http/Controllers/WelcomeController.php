@@ -17,10 +17,10 @@ class WelcomeController extends Controller
         $entries = Entry::orderBy('total', 'desc')->get();
 
         return view('welcome', [
-            'first' => $entries->first(),
-            'second' => $entries->get(2),
-            'third' => $entries->get(3),
-            'entries' => $entries->slice(4),
+            'first' => $entries->get(0),
+            'second' => $entries->get(1),
+            'third' => $entries->get(2),
+            'entries' => $entries->slice(3),
         ]);
     }
 }
