@@ -14,7 +14,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $entries = Entry::orderBy('total')->get();
+        $entries = Entry::orderBy('total', 'desc')->get();
 
         return view('welcome', [
             'first' => $entries->first(),

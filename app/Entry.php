@@ -154,9 +154,11 @@ class Entry extends Model
      */
     public function calculateGoalDifferential(Collection $teams)
     {
-        return $teams->sum(function ($team) {
+        $differential = $teams->sum(function ($team) {
             return $team->calculateGoalDifferential();
         });
+
+        return max($differential, 0);
     }
 
     /**
@@ -249,7 +251,7 @@ class Entry extends Model
     public function calculateSecond(Collection $teams)
     {
         $second = $teams->contains(function ($team) {
-            return $team->finshedSecond();
+            return $team->finishedSecond();
         });
 
         return $second ? 1 : 0;
