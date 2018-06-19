@@ -19,7 +19,9 @@ add('shared_files', ['sport.db']);
 add('shared_dirs', []);
 
 // Writable dirs by web server
-add('writable_dirs', []);
+set('writable_dirs', []);
+set('writable_mode', 'chmod');
+set('writable_chmod_mode', '0775');
 set('allow_anonymous_stats', false);
 
 // Hosts
@@ -39,6 +41,7 @@ task('bundle', function () {
 
 task('permissions', function () {
     run ('chgrp -R www-data {{release_path}}');
+    run ('chmod -R g+w {{release_path}}');
 });
 
 // [Optional] if deploy fails automatically unlock.

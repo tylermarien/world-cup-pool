@@ -41,7 +41,7 @@ return [
 
         'sportdb' => [
             'driver' => 'sqlite',
-            'database' => env('DB_SPORT', base_path('sport.db')),
+            'database' => env('DB_SPORT', storage_path('app/sport.db')),
             'prefix' => '',
         ],
 

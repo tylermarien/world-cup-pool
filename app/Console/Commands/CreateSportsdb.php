@@ -39,7 +39,7 @@ class CreateSportsdb extends Command
     public function handle()
     {
         // create sportdb
-        $process = new Process('bundle exec sportdb new worldcup2018');
+        $process = new Process('bundle exec sportdb -d storage/app new worldcup2018');
         $process->run();
     }
 }

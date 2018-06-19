@@ -24,7 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sportsdb:update')->hourly();
         $schedule->command('stats:update')->hourly();
     }
 

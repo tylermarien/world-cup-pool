@@ -4,22 +4,23 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Storage;
 
-class UpdateSportsdb extends Command
+class DeleteSportsDb extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sportsdb:update';
+    protected $signature = 'sportsdb:delete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updates the sportsdb database';
+    protected $description = 'Deletes the sportsdb';
 
     /**
      * Create a new command instance.
@@ -38,8 +39,6 @@ class UpdateSportsdb extends Command
      */
     public function handle()
     {
-        // update sportdb
-        $process = new Process('bundle exec sportdb -d storage/app update worldcup2018');
-        $process->run();
+        Storage::delete('sport.db');
     }
 }

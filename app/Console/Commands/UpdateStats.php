@@ -55,6 +55,9 @@ class UpdateStats extends Command
      */
     public function handle()
     {
+        $this->call('sportsdb:delete');
+        $this->call('sportsdb:create');
+
         $this->entries->all()->each(function ($entry) {
             $entry->total = $entry->calculateTotal();
             $entry->save();
