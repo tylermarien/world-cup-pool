@@ -83,7 +83,7 @@ class Entry extends Model
     public function calculateTotal()
     {
         $teams = SportsDbTeam::whereIn('id', $this->teams->pluck('id'))->get();
-        $persons = SportsDbPerson::whereIn('id', $this->players->pluck('id'))->get();
+        $persons = SportsDbPerson::whereIn('key', $this->players->pluck('key'))->get();
 
         return
             ($this->calculateGamesPlayed($teams) * self::POINTS_TEAM_GAMES_PLAYED)
@@ -99,7 +99,6 @@ class Entry extends Model
             + ($this->calculateSecond($teams) * self::POINTS_TEAM_SECOND)
             + ($this->calculateThird($teams) * self::POINTS_TEAM_THIRD)
             + ($this->calculateGoals($persons) * self::POINTS_PLAYER_GOAL)
-            + ($this->calculateShootoutGoals($persons) * self::POINTS_PLAYER_SHOOTOUT_GOAL)
         ;
     }
 
@@ -285,17 +284,5 @@ class Entry extends Model
         return $persons->sum(function ($person) {
             return $person->goals->count();
         });
-    }
-
-    /**
-     * Calculate the number of shootout goals
-     *
-     * @param \Illuminate\Support\Collection $persons
-     *
-     * @return int
-     */
-    public function calculateShootoutGoals(Collection $persons)
-    {
-        return 0;
     }
 }
