@@ -82,120 +82,89 @@ class Entry extends Model
      */
     public function calculateTotal()
     {
-        $teams = SportsDbTeam::whereIn('id', $this->teams->pluck('id'))->get();
-        $persons = SportsDbPerson::whereIn('key', $this->players->pluck('key'))->get();
-
         return
-            ($this->calculateGamesPlayed($teams) * self::POINTS_TEAM_GAMES_PLAYED)
-            + ($this->calculateWins($teams) * self::POINTS_TEAM_WIN)
-            + ($this->calculateTies($teams) * self::POINTS_TEAM_TIE)
-            + ($this->calculateGoalDifferential($teams) * self::POINTS_TEAM_GOAL_DIFFERENTIAL)
-            + ($this->calculateShootoutWins($teams) * self::POINTS_TEAM_SHOOTOUT_WIN)
-            + ($this->calculateShutouts($teams) * self::POINTS_TEAM_SHUTOUT)
-            + ($this->calculateFirstInGroup($teams) * self::POINTS_TEAM_FIRST_IN_GROUP)
-            + ($this->calculateSecondInGroup($teams) * self::POINTS_TEAM_SECOND_IN_GROUP)
-            + ($this->calculateThirdInGroup($teams) * self::POINTS_TEAM_THIRD_IN_GROUP)
-            + ($this->calculateFirst($teams) * self::POINTS_TEAM_FIRST)
-            + ($this->calculateSecond($teams) * self::POINTS_TEAM_SECOND)
-            + ($this->calculateThird($teams) * self::POINTS_TEAM_THIRD)
-            + ($this->calculateGoals($persons) * self::POINTS_PLAYER_GOAL)
+            ($this->calculateGamesPlayed() * self::POINTS_TEAM_GAMES_PLAYED)
+            + ($this->calculateWins() * self::POINTS_TEAM_WIN)
+            + ($this->calculateTies() * self::POINTS_TEAM_TIE)
+            + ($this->calculateGoalDifferential() * self::POINTS_TEAM_GOAL_DIFFERENTIAL)
+            + ($this->calculateShootoutWins() * self::POINTS_TEAM_SHOOTOUT_WIN)
+            + ($this->calculateShutouts() * self::POINTS_TEAM_SHUTOUT)
+            + ($this->calculateFirstInGroup() * self::POINTS_TEAM_FIRST_IN_GROUP)
+            + ($this->calculateSecondInGroup() * self::POINTS_TEAM_SECOND_IN_GROUP)
+            + ($this->calculateThirdInGroup() * self::POINTS_TEAM_THIRD_IN_GROUP)
+            + ($this->calculateFirst() * self::POINTS_TEAM_FIRST)
+            + ($this->calculateSecond() * self::POINTS_TEAM_SECOND)
+            + ($this->calculateThird() * self::POINTS_TEAM_THIRD)
+            + ($this->calculateGoals() * self::POINTS_PLAYER_GOAL)
         ;
     }
 
     /**
      * Calculate the number of games played for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateGamesPlayed(Collection $teams)
+    public function calculateGamesPlayed()
     {
-        return $teams->sum(function ($team) {
-            return $team->calculateGamesPlayed();
-        });
+        return $this->teams->sum('games_played');
     }
 
     /**
      * Calculate the number of games played for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateWins(Collection $teams)
+    public function calculateWins()
     {
-        return $teams->sum(function ($team) {
-            return $team->calculateWins();
-        });
+        return $this->teams->sum('wins');
     }
 
     /**
      * Calculate the number of games played for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateTies(Collection $teams)
+    public function calculateTies()
     {
-        return $teams->sum(function ($team) {
-            return $team->calculateTies();
-        });
+        return $this->teams->sum('ties');
     }
 
     /**
      * Calculate the goals differential for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateGoalDifferential(Collection $teams)
+    public function calculateGoalDifferential()
     {
-        $differential = $teams->sum(function ($team) {
-            return $team->calculateGoalDifferential();
-        });
-
-        return max($differential, 0);
+        return $this->teams->sum('goal_differential');
     }
 
     /**
      * Calculate the number of shootout wins for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateShootoutWins(Collection $teams)
+    public function calculateShootoutWins()
     {
-        return $teams->sum(function ($team) {
-            return $team->calculateShootoutWins();
-        });
+        return $this->teams->sum('shootout_wins');
     }
 
     /**
      * Calculate the number of shutouts for this entry
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateShutouts(Collection $teams)
+    public function calculateShutouts()
     {
-        return $teams->sum(function ($team) {
-            return $team->calculateShutouts();
-        });
+        return $this->teams->sum('shutouts');
     }
 
     /**
      * Calculate the number of first in groups
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateFirstInGroup(Collection $teams)
+    public function calculateFirstInGroup()
     {
         return 0;
     }
@@ -203,11 +172,9 @@ class Entry extends Model
     /**
      * Calculate the number of second in groups
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateSecondInGroup(Collection $teams)
+    public function calculateSecondInGroup()
     {
         return 0;
     }
@@ -215,11 +182,9 @@ class Entry extends Model
     /**
      * Calculate the number of third in groups
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateThirdInGroup(Collection $teams)
+    public function calculateThirdInGroup()
     {
         return 0;
     }
@@ -227,62 +192,40 @@ class Entry extends Model
     /**
      * Calculate the number of firsts
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateFirst(Collection $teams)
+    public function calculateFirst()
     {
-        $first = $teams->contains(function ($team) {
-            return $team->finishedFirst();
-        });
-
-        return $first ? 1 : 0;
+        return 0;
     }
 
     /**
      * Calculate the number of second in groups
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateSecond(Collection $teams)
+    public function calculateSecond()
     {
-        $second = $teams->contains(function ($team) {
-            return $team->finishedSecond();
-        });
-
-        return $second ? 1 : 0;
+        return 0;
     }
 
     /**
      * Calculate the number of third
      *
-     * @param \Illuminate\Support\Collection $teams
-     *
      * @return int
      */
-    public function calculateThird(Collection $teams)
+    public function calculateThird()
     {
-        $third = $teams->contains(function ($team) {
-            return $team->finishedThird();
-        });
-
-        return $third ? 1 : 0;
+        return 0;
     }
 
     /**
      * Calculate the number of goals
      *
-     * @param \Illuminate\Support\Collection $persons
-     *
      * @return int
      */
-    public function calculateGoals(Collection $persons)
+    public function calculateGoals()
     {
-        return $persons->sum(function ($person) {
-            return $person->goals->count();
-        });
+        return $this->players->sum('goals');
     }
 }

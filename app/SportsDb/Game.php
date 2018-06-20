@@ -11,6 +11,15 @@ class Game extends Model
     const WINNER_AWAY_TEAM = 2;
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'winner' => 'int',
+    ];
+
+    /**
      * The connection name for the model.
      *
      * @var string
