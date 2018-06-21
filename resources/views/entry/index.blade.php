@@ -10,21 +10,21 @@
                         <div class="featured gold">
                             <img src="{{ asset('img/gold-ribbon.svg') }}" class="ribbon">
                             <div class="container">
-                                <p>{{ $first->name  }} - <small>{{ __(':total pts', ['total' => $first->total]) }}</small></p>
+                                <p><a href="{{ route('entries.show', ['entry' => $first]) }}">{{ $first->name  }}</a> - <small>{{ __(':total pts', ['total' => $first->total]) }}</small></p>
                             </div>
                         </div>
 
                         <div class="featured silver">
                             <img src="{{ asset('img/silver-ribbon.svg') }}" class="ribbon">
                             <div class="container">
-                            <p>{{ $second->name  }} - <small>{{ __(':total pts', ['total' => $second->total]) }}</small></p>
+                            <p><a href="{{ route('entries.show', ['entry' => $second]) }}">{{ $second->name  }}</a> - <small>{{ __(':total pts', ['total' => $second->total]) }}</small></p>
                             </div>
                         </div>
 
                         <div class="featured bronze">
                             <img src="{{ asset('img/bronze-ribbon.svg') }}" class="ribbon">
                             <div class="container">
-                            <p>{{ $third->name  }} - <small>{{ __(':total pts', ['total' => $third->total]) }}</small></p>
+                            <p><a href="{{ route('entries.show', ['entry' => $third]) }}">{{ $third->name  }}</a> - <small>{{ __(':total pts', ['total' => $third->total]) }}</small></p>
                             </div>
                         </div>
 
