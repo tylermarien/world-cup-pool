@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h1>Edit {{ $entry->name }}</h1>
-        <form action="{{ route('entries.update', ['entry' => $entry]) }}" method="POST">
+        <form action="{{ route('admin.entries.update', ['entry' => $entry]) }}" method="POST">
             @method('PUT')
             @csrf
             <div class="form-group">
