@@ -67,9 +67,9 @@ class Entry extends Model
     public function calculateTotal()
     {
         return $this->teams->sum(function ($team) {
-            return $team->total();
+            return $team->calculateTotal();
         }) + $this->players->sum(function ($player) {
-            return $player->total();
+            return $player->calculateTotal();
         });
     }
 }
