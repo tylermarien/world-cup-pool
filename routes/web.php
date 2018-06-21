@@ -13,6 +13,8 @@
 
 Route::get('/', 'EntryController@index')->name('entries.index');
 Route::get('/entries/{id}', 'EntryController@show')->name('entries.show');
+Route::get('/teams/{id}', 'TeamController@show')->name('teams.show');
+Route::get('/players/{id}', 'PlayerController@show')->name('players.show');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -17,7 +17,7 @@
                         <tbody>
                         @foreach($entry->teams as $team)
                         <tr>
-                            <td>{{ $team->name }}</td>
+                            <td><a href="{{ route('teams.show', ['team' => $team]) }}">{{ $team->name }}</a></td>
                             <td>{{ __(':total pts', ['total' => $team->calculateTotal()]) }}</td>
                         </tr>
                         @endforeach
@@ -31,7 +31,7 @@
                         <tbody>
                         @foreach($entry->players as $player)
                         <tr>
-                            <td>{{ $player->name }}</td>
+                            <td><a href="{{ route('players.show', ['player' => $player]) }}">{{ $player->name }}</a></td>
                             <td>{{ __(':total pts', ['total' => $player->calculateTotal()]) }}</td>
                         </tr>
                         @endforeach

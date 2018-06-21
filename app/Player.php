@@ -50,6 +50,11 @@ class Player extends Model
 
     public function calculateTotal()
     {
+        return $this->calculateGoalPoints();
+    }
+
+    public function calculateGoalPoints()
+    {
         return $this->goals * self::POINTS_GOAL;
     }
 }

@@ -67,18 +67,48 @@ class Team extends Model
 
     public function calculateTotal()
     {
-        return ($this->games_played * self::POINTS_GAMES_PLAYED)
-        + ($this->wins * self::POINTS_WIN)
-        + ($this->ties * self::POINTS_TIE)
-        + ($this->goal_differential * self::POINTS_GOAL_DIFFERENTIAL)
-        + ($this->shootout_wins * self::POINTS_SHOOTOUT_WIN)
-        + ($this->shutout_wins * self::POINTS_SHUTOUT)
+        return $this->calculateGamesPlayedPoints()
+        + $this->calculateWinPoints()
+        + $this->calculateTiePoints()
+        + $this->calculateGoalDifferentialPoints()
+        + $this->calculateShootoutWinPoints()
+        + $this->calculateShutoutPoints()
         + ($this->calculateFirstInGroup() * self::POINTS_FIRST_IN_GROUP)
         + ($this->calculateSecondInGroup() * self::POINTS_SECOND_IN_GROUP)
         + ($this->calculateThirdInGroup() * self::POINTS_THIRD_IN_GROUP)
         + ($this->calculateFirst() * self::POINTS_FIRST)
         + ($this->calculateSecond() * self::POINTS_SECOND)
         + ($this->calculateThird() * self::POINTS_THIRD);
+    }
+
+    public function calculateGamesPlayedPoints()
+    {
+        return $this->games_played * self::POINTS_GAMES_PLAYED;
+    }
+
+    public function calculateWinPoints()
+    {
+        return $this->wins * self::POINTS_WIN;
+    }
+
+    public function calculateTiePoints()
+    {
+        return $this->ties * self::POINTS_TIE;
+    }
+
+    public function calculateGoalDifferentialPoints()
+    {
+        return $this->goal_differential * self::POINTS_GOAL_DIFFERENTIAL;
+    }
+
+    public function calculateShootoutWinPoints()
+    {
+        return $this->shootout_wins * self::POINTS_SHOOTOUT_WIN;
+    }
+
+    public function calculateShutoutPoints()
+    {
+        return $this->shutouts * self::POINTS_SHUTOUT;
     }
 
     /**
