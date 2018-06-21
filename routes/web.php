@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'EntryController@index')->name('entries.index');
+Route::get('/entries/{id}', 'EntryController@show')->name('entries.show');
 
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -24,7 +25,11 @@ $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::resource('entries', 'EntryController');
-});
+Route::namespace('Admin')
+    ->middleware('auth')
+    ->prefix('admin')
+    ->as('admin.')
+    ->group(function () {
+        Route::resource('entries', 'EntryController');
+    });
 

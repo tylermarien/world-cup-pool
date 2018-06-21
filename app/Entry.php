@@ -28,22 +28,6 @@ use App\SportsDb\Person as SportsDbPerson;
  */
 class Entry extends Model
 {
-    const POINTS_TEAM_GAMES_PLAYED = 1;
-    const POINTS_TEAM_WIN = 4;
-    const POINTS_TEAM_TIE = 2;
-    const POINTS_TEAM_GOAL_DIFFERENTIAL = 1;
-    const POINTS_TEAM_SHOOTOUT_WIN = 1;
-    const POINTS_TEAM_SHUTOUT = 1;
-    const POINTS_TEAM_FIRST_IN_GROUP = 4;
-    const POINTS_TEAM_SECOND_IN_GROUP = 2;
-    const POINTS_TEAM_THIRD_IN_GROUP = 1;
-    const POINTS_TEAM_FIRST = 8;
-    const POINTS_TEAM_SECOND = 5;
-    const POINTS_TEAM_THIRD = 3;
-
-    const POINTS_PLAYER_GOAL = 2;
-    const POINTS_PLAYER_SHOOTOUT_GOAL = 1;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -82,150 +66,10 @@ class Entry extends Model
      */
     public function calculateTotal()
     {
-        return
-            ($this->calculateGamesPlayed() * self::POINTS_TEAM_GAMES_PLAYED)
-            + ($this->calculateWins() * self::POINTS_TEAM_WIN)
-            + ($this->calculateTies() * self::POINTS_TEAM_TIE)
-            + ($this->calculateGoalDifferential() * self::POINTS_TEAM_GOAL_DIFFERENTIAL)
-            + ($this->calculateShootoutWins() * self::POINTS_TEAM_SHOOTOUT_WIN)
-            + ($this->calculateShutouts() * self::POINTS_TEAM_SHUTOUT)
-            + ($this->calculateFirstInGroup() * self::POINTS_TEAM_FIRST_IN_GROUP)
-            + ($this->calculateSecondInGroup() * self::POINTS_TEAM_SECOND_IN_GROUP)
-            + ($this->calculateThirdInGroup() * self::POINTS_TEAM_THIRD_IN_GROUP)
-            + ($this->calculateFirst() * self::POINTS_TEAM_FIRST)
-            + ($this->calculateSecond() * self::POINTS_TEAM_SECOND)
-            + ($this->calculateThird() * self::POINTS_TEAM_THIRD)
-            + ($this->calculateGoals() * self::POINTS_PLAYER_GOAL)
-        ;
-    }
-
-    /**
-     * Calculate the number of games played for this entry
-     *
-     * @return int
-     */
-    public function calculateGamesPlayed()
-    {
-        return $this->teams->sum('games_played');
-    }
-
-    /**
-     * Calculate the number of games played for this entry
-     *
-     * @return int
-     */
-    public function calculateWins()
-    {
-        return $this->teams->sum('wins');
-    }
-
-    /**
-     * Calculate the number of games played for this entry
-     *
-     * @return int
-     */
-    public function calculateTies()
-    {
-        return $this->teams->sum('ties');
-    }
-
-    /**
-     * Calculate the goals differential for this entry
-     *
-     * @return int
-     */
-    public function calculateGoalDifferential()
-    {
-        return $this->teams->sum('goal_differential');
-    }
-
-    /**
-     * Calculate the number of shootout wins for this entry
-     *
-     * @return int
-     */
-    public function calculateShootoutWins()
-    {
-        return $this->teams->sum('shootout_wins');
-    }
-
-    /**
-     * Calculate the number of shutouts for this entry
-     *
-     * @return int
-     */
-    public function calculateShutouts()
-    {
-        return $this->teams->sum('shutouts');
-    }
-
-    /**
-     * Calculate the number of first in groups
-     *
-     * @return int
-     */
-    public function calculateFirstInGroup()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of second in groups
-     *
-     * @return int
-     */
-    public function calculateSecondInGroup()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of third in groups
-     *
-     * @return int
-     */
-    public function calculateThirdInGroup()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of firsts
-     *
-     * @return int
-     */
-    public function calculateFirst()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of second in groups
-     *
-     * @return int
-     */
-    public function calculateSecond()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of third
-     *
-     * @return int
-     */
-    public function calculateThird()
-    {
-        return 0;
-    }
-
-    /**
-     * Calculate the number of goals
-     *
-     * @return int
-     */
-    public function calculateGoals()
-    {
-        return $this->players->sum('goals');
+        return $this->teams->sum(function ($team) {
+            return $team->total();
+        }) + $this->players->sum(function ($player) {
+            return $player->total();
+        });
     }
 }

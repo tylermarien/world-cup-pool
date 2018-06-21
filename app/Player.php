@@ -26,6 +26,8 @@ class Player extends Model
 {
     use Enterable;
 
+    const POINTS_GOAL = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +46,10 @@ class Player extends Model
     public function entries()
     {
         return $this->belongsToMany(Entry::class);
+    }
+
+    public function calculateTotal()
+    {
+        return $this->goals * self::POINTS_GOAL;
     }
 }
