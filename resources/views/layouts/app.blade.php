@@ -26,8 +26,10 @@
 <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
-                <img src="{{ asset('img/ball-logo.svg')}} " class="main-logo">
-                <a class="navbar-brand js-scroll-trigger main-logo-words" href="#page-top">
+                <a href="{{ route('entries.index') }}">
+                    <img src="{{ asset('img/ball-logo.svg')}} " class="main-logo">
+                </a>
+                <a class="navbar-brand js-scroll-trigger main-logo-words" href="{{ route('entries.index') }}">
                     World Cup <span class="red">Draft</span>
                 </a>
 
@@ -54,7 +56,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
 
