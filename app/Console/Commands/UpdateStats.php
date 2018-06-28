@@ -90,11 +90,13 @@ class UpdateStats extends Command
             ]);
         });
 
-        $players = SportsDbPerson::all();
-        $players->each(function ($player) {
-            $this->players->where('key', $player->key)->update([
-                'goals' => $player->goals()->count(),
-            ]);
+        $this->players->all()->each(function ($player) {
+            $keys = explode(',', $player->key);
+            $persons = SportsDbPerson::whereIn('key', $keys)->get();
+            $player->goals = $persons->sum(function ($person) {
+                $person->goals()->count();
+            });
+            $player->save();
         });
 
         $this->entries->all()->each(function ($entry) {
