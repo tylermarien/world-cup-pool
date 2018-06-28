@@ -118,7 +118,7 @@ class Team extends Model
      */
     public function calculateFirstInGroup()
     {
-        return 0;
+        return $this->pool_placing == 1 ? 1 : 0;
     }
 
     /**
@@ -128,7 +128,7 @@ class Team extends Model
      */
     public function calculateSecondInGroup()
     {
-        return 0;
+        return $this->pool_placing == 2 ? 1 : 0;
     }
 
     /**
@@ -138,7 +138,7 @@ class Team extends Model
      */
     public function calculateThirdInGroup()
     {
-        return 0;
+        return $this->pool_placing == 3 ? 1 : 0;
     }
 
     /**
@@ -148,7 +148,7 @@ class Team extends Model
      */
     public function calculateFirst()
     {
-        return 0;
+        return $this->final_placing == 1 ? 1 : 0;
     }
 
     /**
@@ -158,7 +158,7 @@ class Team extends Model
      */
     public function calculateSecond()
     {
-        return 0;
+        return $this->final_placing == 2 ? 1 : 0;
     }
 
     /**
@@ -168,6 +168,6 @@ class Team extends Model
      */
     public function calculateThird()
     {
-        return 0;
+        return $this->final_placing == 3 ? 1 : 0;
     }
 }
