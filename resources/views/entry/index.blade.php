@@ -44,7 +44,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <p>{{ __('Last updated: :updated', ['updated' => $entries->first()->updated_at->format('F j, Y \@ g:ia')]) }}</p>
+                        <p>{{ __('Last updated: :updated', ['updated' => $entries->first()->updated_at->tz('America/Regina')->format('F j, Y \@ g:ia T')]) }}</p>
                     </div>
                 </div>
             </div>
