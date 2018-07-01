@@ -59,6 +59,10 @@ class Entry extends Model
         return $this->belongsToMany(Team::class);
     }
 
+    public function calculateGamesPlayed() {
+        return $this->teams->sum('games_played');
+    }
+
     /**
      * Calcualte the total
      *
