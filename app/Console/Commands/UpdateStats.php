@@ -94,7 +94,7 @@ class UpdateStats extends Command
             $keys = explode(',', $player->key);
             $persons = SportsDbPerson::whereIn('key', $keys)->get();
             $player->goals = $persons->sum(function ($person) {
-                $person->goals()->count();
+                return $person->goals()->count();
             });
             $player->save();
         });
