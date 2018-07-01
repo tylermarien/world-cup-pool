@@ -73,12 +73,8 @@ class Team extends Model
         + $this->calculateGoalDifferentialPoints()
         + $this->calculateShootoutWinPoints()
         + $this->calculateShutoutPoints()
-        + ($this->calculateFirstInGroup() * self::POINTS_FIRST_IN_GROUP)
-        + ($this->calculateSecondInGroup() * self::POINTS_SECOND_IN_GROUP)
-        + ($this->calculateThirdInGroup() * self::POINTS_THIRD_IN_GROUP)
-        + ($this->calculateFirst() * self::POINTS_FIRST)
-        + ($this->calculateSecond() * self::POINTS_SECOND)
-        + ($this->calculateThird() * self::POINTS_THIRD);
+        + $this->calculatePoolPlacingPoints()
+        + $this->calculateFinalPlacingPoints();
     }
 
     public function calculateGamesPlayedPoints()
@@ -109,6 +105,34 @@ class Team extends Model
     public function calculateShutoutPoints()
     {
         return $this->shutouts * self::POINTS_SHUTOUT;
+    }
+
+    public function calculatePoolPlacingPoints()
+    {
+        switch($this->pool_placing) {
+            case 1:
+                return self::POINTS_FIRST_IN_GROUP;
+            case 2:
+                return self::POINTS_SECOND_IN_GROUP;
+            case 3:
+                return self::POINTS_THIRD_IN_GROUP;
+            default:
+                return 0;
+        }
+    }
+
+    public function calculateFinalPlacingPoints()
+    {
+        switch($this->final_placing) {
+            case 1:
+                return self::POINTS_FIRST;
+            case 2:
+                return self::POINTS_SECOND;
+            case 3:
+                return self::POINTS_THIRD;
+            default:
+                return 0;
+        }
     }
 
     /**

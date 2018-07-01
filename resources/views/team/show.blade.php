@@ -44,6 +44,20 @@
                             <td>{{ $team->shutouts }}</td>
                             <td>{{ __(':points pts', ['points' => $team->calculateShutoutPoints()]) }}</td>
                         </tr>
+                        @if (!is_null($team->pool_placing))
+                        <tr>
+                            <td>{{ __('Pool Placing') }}</td>
+                            <td>{{ $team->pool_placing }}</td>
+                            <td>{{ __(':points pts', ['points' => $team->calculatePoolPlacingPoints()]) }}</td>
+                        </tr>
+                        @endif
+                        @if (!is_null($team->final_placing))
+                        <tr>
+                            <td>{{ __('Final Placing') }}</td>
+                            <td>{{ $team->final_placing }}</td>
+                            <td>{{ __(':points pts', ['points' => $team->calculateFinalPlacingPoints()]) }}</td>
+                        </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
