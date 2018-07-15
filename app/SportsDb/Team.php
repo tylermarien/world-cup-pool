@@ -153,9 +153,9 @@ class Team extends Model
     public function calculateGoalDifferential()
     {
         return $this->homeGames->sum(function ($game) {
-            return ($game->score1 + $game->score1et) - ($game->score2 + $game->score2et);
+            return ($game->score1et ?? $game->score1) - ($game->score2et ?? $game->score2);
         }) + $this->awayGames->sum(function ($game) {
-            return ($game->score2 + $game->score2et) - ($game->score1 + $game->score1et);
+            return ($game->score2et ?? $game->score2) - ($game->score1et ?? $game->score1);
         });
     }
 
