@@ -75,9 +75,6 @@ class UpdateStats extends Command
      */
     public function handle()
     {
-        $this->call('sportsdb:delete');
-        $this->call('sportsdb:create');
-
         $teams = SportsDbTeam::all();
         $teams->each(function ($team) {
             $this->teams->where('id', $team->id)->update([
