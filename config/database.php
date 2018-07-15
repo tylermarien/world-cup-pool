@@ -40,8 +40,12 @@ return [
         ],
 
         'sportdb' => [
-            'driver' => 'sqlite',
-            'database' => env('DB_SPORT', storage_path('app/sport.db')),
+            'driver' => 'mysql',
+            'host' => env('SPORTDB_HOST', '127.0.0.1'),
+            'port' => env('SPORTDB_PORT', '3306'),
+            'database' => env('SPORTDB_DATABASE', 'forge'),
+            'username' => env('SPORTDB_USERNAME', 'forge'),
+            'password' => env('SPORTDB_PASSWORD', ''),
             'prefix' => '',
         ],
 
