@@ -10,9 +10,6 @@
 
     <title>{{ __('World Cup Pool') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
-
     <!-- Custom fonts for this template -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
@@ -65,8 +62,5 @@
                 <p>&copy; World Cup Draft 2018 - All Rights Reserved.</p>
             </div>
         </footer>
-
-        <!-- Plugin JavaScript -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script> -->
 </body>
 </html>
