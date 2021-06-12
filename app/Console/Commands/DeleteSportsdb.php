@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
 
-class DeleteSportsDb extends Command
+class DeleteSportsdb extends Command
 {
     /**
      * The name and signature of the console command.

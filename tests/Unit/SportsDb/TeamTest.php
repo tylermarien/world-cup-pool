@@ -4,7 +4,7 @@ namespace Tests\Unit\SportsDb;
 
 use Tests\TestCase;
 
-class TestTest extends TestCase
+class TeamTest extends TestCase
 {
     public function testCalculateGamesPlayedWhenNoGames()
     {
