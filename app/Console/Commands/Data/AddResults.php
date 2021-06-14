@@ -108,6 +108,20 @@ class AddResults extends Command
         ]);
       });
 
+      Player::all()->each(function ($player) use ($values) {
+        $goals = array_reduce($values, function($previous, $value) use ($player) {
+          return $previous + array_reduce($value['goals'], function ($previous, $goal) use ($player) {
+            if ($goal['player'] === $player->key) {
+              return $previous + 1;
+            }
+
+            return $previous;
+          }, 0);
+        }, 0);
+
+        $player->update(['goals' => $goals]);
+      });
+
       Entry::all()->each(function ($entry) {
         $entry->total = $entry->calculateTotal();
         $entry->save();

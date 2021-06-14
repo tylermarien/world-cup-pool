@@ -37,6 +37,7 @@ class Player extends Model
         'key',
         'team_id',
         'name',
+        'goals',
     ];
 
     /**
