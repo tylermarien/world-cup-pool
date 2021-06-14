@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ __('World Cup Pool') }}</title>
+    <title>{{ __('Euro Cup Pool') }}</title>
 
     <!-- Custom fonts for this template -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -27,7 +27,7 @@
                     <img src="{{ asset('img/ball-logo.svg')}} " class="main-logo">
                 </a>
                 <a class="navbar-brand js-scroll-trigger main-logo-words" href="{{ route('entries.index') }}">
-                    World Cup <span class="red">Draft</span>
+                    Euro Cup <span class="red">Pool</span>
                 </a>
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 
         <footer>
             <div class="container">
-                <p>&copy; World Cup Draft 2018 - All Rights Reserved.</p>
+                <p>&copy; Euro Cup Pool 2020 - All Rights Reserved.</p>
             </div>
         </footer>
 </body>
