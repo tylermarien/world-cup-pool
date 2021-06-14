@@ -34,6 +34,7 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
+        'key',
         'team_id',
         'name',
     ];
@@ -46,6 +47,11 @@ class Player extends Model
     public function entries()
     {
         return $this->belongsToMany(Entry::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function calculateTotal()

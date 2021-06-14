@@ -40,6 +40,15 @@ class Entry extends Model
     ];
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'total' => 0,
+    ];
+
+    /**
      * Return an entry's related player records.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

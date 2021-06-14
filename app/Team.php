@@ -42,6 +42,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
+        'key',
         'name',
     ];
 
