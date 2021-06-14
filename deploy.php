@@ -14,7 +14,7 @@ set('repository', 'https://github.com/tylermarien/world-cup-pool.git');
 set('git_tty', true);
 
 // Shared files/dirs between deploys
-add('shared_files', ['sport.db']);
+add('shared_files', []);
 add('shared_dirs', []);
 
 // Writable dirs by web server
@@ -50,6 +50,6 @@ after('deploy:failed', 'deploy:unlock');
 
 after('deploy:update_code', 'yarn');
 after('deploy:update_code', 'build');
-// after('deploy:update_code', 'permissions');
+after('deploy:update_code', 'permissions');
 before('deploy:symlink', 'artisan:migrate');
 
