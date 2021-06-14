@@ -44,6 +44,14 @@ class Team extends Model
     protected $fillable = [
         'key',
         'name',
+        'games_played',
+        'wins',
+        'ties',
+        'goal_differential',
+        'shootout_wins',
+        'shutouts',
+        'pool_placing',
+        'final_placing',
     ];
 
     /**
