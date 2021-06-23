@@ -27,6 +27,35 @@ class AddResults extends Command
     protected $description = 'Reads in the results from the yaml file';
 
     /**
+     * @var Entry
+     */
+    protected Entry $entries;
+
+    /**
+     * @var Team
+     */
+    protected Team $teams;
+
+    /**
+     * @var Player
+     */
+    protected Player $players;
+
+    /**
+     * @param Entry $entries
+     * @param Team $teams
+     * @param Player $players
+     */
+    public function __construct(Entry $entries, Team $teams, Player $players)
+    {
+      parent::__construct();
+
+      $this->entries = $entries;
+      $this->teams = $teams;
+      $this->players = $players;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return int
@@ -39,7 +68,9 @@ class AddResults extends Command
         $this->error('Could not load entries.yaml');
       }
 
-      Team::all()->each(function ($team) use ($values) {
+      $this->validateYaml($values);
+
+      $this->teams->all()->each(function ($team) use ($values) {
         $games = array_filter($values, fn($value) => $value['home'] === $team->key || $value['away'] === $team->key);
 
         $games_played = count($games);
@@ -49,7 +80,7 @@ class AddResults extends Command
         $goals_against = 0;
         $shutouts = 0;
         foreach($games as $value) {
-          $home_goals = array_reduce($value['goals'], function ($previous, $goal) use ($value) {
+          $home_goals = !isset($value['goals']) ? 0 : array_reduce($value['goals'], function ($previous, $goal) use ($value) {
             if ($goal['team'] === $value['home']) {
               return $previous + 1;
             }
@@ -57,7 +88,7 @@ class AddResults extends Command
             return $previous;
           }, 0);
 
-          $away_goals = array_reduce($value['goals'], function ($previous, $goal) use ($value) {
+          $away_goals = !isset($value['goals']) ? 0 : array_reduce($value['goals'], function ($previous, $goal) use ($value) {
             if ($goal['team'] === $value['away']) {
               return $previous + 1;
             }
@@ -108,8 +139,12 @@ class AddResults extends Command
         ]);
       });
 
-      Player::all()->each(function ($player) use ($values) {
+      $this->players->all()->each(function ($player) use ($values) {
         $goals = array_reduce($values, function($previous, $value) use ($player) {
+          if (!isset($value['goals'])) {
+            return $previous;
+          }
+
           return $previous + array_reduce($value['goals'], function ($previous, $goal) use ($player) {
             if ($goal['player'] === $player->key) {
               return $previous + 1;
@@ -120,13 +155,45 @@ class AddResults extends Command
         }, 0);
 
         $player->update(['goals' => $goals]);
+        if ($goals > 0) {
+          $this->info("{$player->name} has {$goals} goals");
+        }
       });
 
-      Entry::all()->each(function ($entry) {
+      $this->entries->all()->each(function ($entry) {
         $entry->total = $entry->calculateTotal();
         $entry->save();
       });
 
       return 0;
+    }
+
+    protected function validateYaml(array $games): void
+    {
+      foreach($games as $game) {
+        $home = $this->teams->where('key', $game['home'])->first();
+        if (is_null($home)) {
+          $this->error("{$value['home']} does not map to a team");
+        }
+
+        $away = $this->teams->where('key', $game['away'])->first();
+        if (is_null($away)) {
+          $this->error("{$game['away']} does not map to a team");
+        }
+
+        if (isset($game['goals'])) {
+          foreach($game['goals'] as $goal) {
+            $player = $this->players->where('key', $goal['player'])->first();
+
+            if ($goal['team'] !== $game['home'] && $goal['team'] !== $game['away']) {
+              $this->error("{$goal['team']} does not map to one of the participating teams");
+            }
+
+            if (is_null($player)) {
+              $this->warn("{$goal['player']} does not map to a player");
+            }
+          }
+        }
+      }
     }
 }
