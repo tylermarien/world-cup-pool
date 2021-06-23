@@ -72,6 +72,11 @@ class Entry extends Model
         return $this->teams->sum('games_played');
     }
 
+    public function calculateTeamsRemaining(): int
+    {
+        return $this->teams->sum(fn($team) => $team->eliminated ? 0 : 1);
+    }
+
     /**
      * Calcualte the total
      *

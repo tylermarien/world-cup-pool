@@ -7,27 +7,9 @@
             <div class="container masthead-custom-container">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="featured gold">
-                            <img src="{{ asset('img/gold-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                                <p><a href="{{ route('entries.show', ['id' => $first]) }}">{{ $first->name  }}</a> <small>{{ __('(:played gp)', ['played' => $first->calculateGamesPlayed()]) }} - {{ __(':total pts', ['total' => $first->total]) }}</small></p>
-                            </div>
-                        </div>
-
-                        <div class="featured silver">
-                            <img src="{{ asset('img/silver-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                            <p><a href="{{ route('entries.show', ['id' => $second]) }}">{{ $second->name  }}</a> <small>{{ __('(:played gp)', ['played' => $second->calculateGamesPlayed()]) }} - {{ __(':total pts', ['total' => $second->total]) }}</small></p>
-                            </div>
-                        </div>
-
-                        <div class="featured bronze">
-                            <img src="{{ asset('img/bronze-ribbon.svg') }}" class="ribbon">
-                            <div class="container">
-                            <p><a href="{{ route('entries.show', ['id' => $third]) }}">{{ $third->name }}</a> <small>{{ __('(:played gp)', ['played' => $third->calculateGamesPlayed()]) }} - {{ __(':total pts', ['total' => $third->total]) }}</small></p>
-                            </div>
-                        </div>
-
+                        @include('entry.standings.ribbon', ['colour' => 'gold', 'entry' => $first])
+                        @include('entry.standings.ribbon', ['colour' => 'silver', 'entry' => $second])
+                        @include('entry.standings.ribbon', ['colour' => 'bronze', 'entry' => $third])
                     </div>
                     <div class="col-lg-8">
                         <table class="table table-condensed">
@@ -38,7 +20,7 @@
                             <tbody>
                                 @foreach($entries as $entry)
                                 <tr>
-                                    <td><a href="{{ route('entries.show', ['id' => $entry]) }}">{{ $entry->name }}</a> {{ __('(:played gp)', ['played' => $entry->calculateGamesPlayed()]) }}</td>
+                                    <td><a href="{{ route('entries.show', ['id' => $entry]) }}">{{ $entry->name }}</a> {{ __('(:played gp, :remaining teams)', ['played' => $entry->calculateGamesPlayed(), 'remaining' => $entry->calculateTeamsRemaining()]) }}</td>
                                     <td class="text-right">{{ __(':total pts', ['total' => $entry->total]) }}</td>
                                 </tr>
                                 @endforeach
