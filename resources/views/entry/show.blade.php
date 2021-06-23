@@ -11,6 +11,22 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12" style="padding-bottom: 15px;">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Compare
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach($entries as $comparison)
+                            @if($comparison->id !== $entry->id)
+                            <a class="dropdown-item" href="{{ route('entries.compare', ['id1' => $entry->id, 'id2' => $comparison->id]) }}">{{ $comparison->name }}</a>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <h2 class="blue"><small><i class="fas fa-flag"></i></small> {{ __('Teams') }}</h2>
                     <table class="table table-condensed">

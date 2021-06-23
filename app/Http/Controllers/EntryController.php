@@ -47,10 +47,25 @@ class EntryController extends Controller
      */
     public function show($id)
     {
+        $entries = $this->entries->all();
         $entry = $this->entries->findOrFail($id);
 
         return view('entry.show', [
+            'entries' => $entries,
             'entry' => $entry,
+        ]);
+    }
+
+    public function compare($id1, $id2)
+    {
+        $entries = $this->entries->all();
+        $left = $this->entries->findOrFail($id1);
+        $right = $this->entries->findOrFail($id2);
+
+        return view('entry.compare', [
+            'entries' => $entries,
+            'left' => $left,
+            'right' => $right,
         ]);
     }
 }

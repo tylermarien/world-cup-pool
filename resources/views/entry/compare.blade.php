@@ -1,0 +1,22 @@
+@extends('layouts.app')
+
+@section('title', 'Welcome')
+
+@section('content')
+    <section class="details bg-primary" id="details">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    @include('entry.compare.dropdown', ['entries' => $entries, 'left' => $left, 'right' => $right, 'side' => 'left'])
+                    @include('entry.compare.teams', ['entry' => $left, 'comparison' => $right])
+                    @include('entry.compare.players', ['entry' => $left, 'comparison' => $right])
+                </div>
+
+                <div class="col-md-6">
+                    @include('entry.compare.dropdown', ['entries' => $entries, 'left' => $left, 'right' => $right, 'side' => 'right'])
+                    @include('entry.compare.teams', ['entry' => $right, 'comparison' => $left])
+                    @include('entry.compare.players', ['entry' => $right, 'comparison' => $left])
+                </div>
+            </div>
+    </section>
+@endsection

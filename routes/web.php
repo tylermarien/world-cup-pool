@@ -13,6 +13,7 @@
 
 Route::get('/', 'EntryController@index')->name('entries.index');
 Route::get('/entries/{id}', 'EntryController@show')->name('entries.show');
+Route::get('/entries/compare/{id1}/{id2}', 'EntryController@compare')->name('entries.compare');
 Route::get('/teams/{id}', 'TeamController@show')->name('teams.show');
 Route::get('/players/{id}', 'PlayerController@show')->name('players.show');
 

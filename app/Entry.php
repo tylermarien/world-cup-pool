@@ -85,4 +85,24 @@ class Entry extends Model
             return $player->calculateTotal();
         });
     }
+
+    /**
+     * Does this entry have specified team
+     *
+     * @param Team
+     */
+    public function hasTeam(Team $team): bool
+    {
+        return $this->teams->contains(fn(Team $comparison) => $comparison->id === $team->id);
+    }
+
+    /**
+     * Does this entry have the specified player
+     *
+     * @param Player
+     */
+    public function hasPlayer(Player $player): bool
+    {
+        return $this->players->contains(fn(Player $comparison) => $comparison->id === $player->id);
+    }
 }
