@@ -20,7 +20,7 @@
                             <tbody>
                                 @foreach($entries as $entry)
                                 <tr>
-                                    <td><a href="{{ route('entries.show', ['id' => $entry]) }}">{{ $entry->name }}</a> {{ __('(:played gp, :remaining teams)', ['played' => $entry->calculateGamesPlayed(), 'remaining' => $entry->calculateTeamsRemaining()]) }}</td>
+                                    <td><a href="{{ route('entries.show', ['id' => $entry]) }}">{{ $entry->name }}</a> {{ __('(:played gp, :remaining teams left)', ['played' => $entry->calculateGamesPlayed(), 'remaining' => $entry->calculateTeamsRemaining()]) }}</td>
                                     <td class="text-right">{{ __(':total pts', ['total' => $entry->total]) }}</td>
                                 </tr>
                                 @endforeach
