@@ -25,6 +25,21 @@ class AddTeams extends Command
     protected $description = 'Reads in the entries from the yaml file';
 
     /**
+     * @var Team
+     */
+    protected $teams;
+
+    /**
+     * @param Team
+     */
+    public function __construct(Team $teams)
+    {
+      parent::__construct();
+
+      $this->teams = $teams;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return int
@@ -39,7 +54,12 @@ class AddTeams extends Command
 
       foreach($values as $value) {
         $this->info("key: {$value['key']}, name: {$value['name']}");
-        Team::create(['key' => $value['key'], 'name' => $value['name']]);
+        $this->teams->updateOrCreate(['key' => $value['key']], [
+          'name' => $value['name'],
+          'pool_placing' => isset($value['pool_placing']) ? intval($value['pool_placing']) : null,
+          'final_placing' => isset($value['final_placing']) ? intval($value['final_placing']) : null,
+          'eliminated' => isset($value['eliminated']) && $value['eliminated'],
+        ]);
       }
 
       return 0;

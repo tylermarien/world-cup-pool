@@ -52,6 +52,7 @@ class Team extends Model
         'shutouts',
         'pool_placing',
         'final_placing',
+        'eliminated',
     ];
 
     /**
