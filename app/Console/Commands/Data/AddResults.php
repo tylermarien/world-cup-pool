@@ -78,6 +78,7 @@ class AddResults extends Command
         $ties = 0;
         $goals_for = 0;
         $goals_against = 0;
+        $shootout_wins = 0;
         $shutouts = 0;
         foreach($games as $value) {
           $home_goals = !isset($value['goals']) ? 0 : array_reduce($value['goals'], function ($previous, $goal) use ($value) {
@@ -97,7 +98,13 @@ class AddResults extends Command
           }, 0);
 
           if ($home_goals === $away_goals) {
-            $ties++;
+            if (isset($value['shootout_winner'])) {
+              if ($value['shootout_winner'] === $team->key) {
+                $shootout_wins++;
+              }
+            } else {
+              $ties++;
+            }
           }
 
           if ($value['home'] === $team->key) {
@@ -135,6 +142,7 @@ class AddResults extends Command
           'wins' => $wins,
           'ties' => $ties,
           'goal_differential' => $goal_differential,
+          'shootout_wins' => $shootout_wins,
           'shutouts' => $shutouts,
         ]);
       });
