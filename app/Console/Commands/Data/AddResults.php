@@ -100,6 +100,7 @@ class AddResults extends Command
           if ($home_goals === $away_goals) {
             if (isset($value['shootout_winner'])) {
               if ($value['shootout_winner'] === $team->key) {
+                $wins++;
                 $shootout_wins++;
               }
             } else {
