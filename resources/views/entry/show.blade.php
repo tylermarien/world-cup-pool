@@ -33,7 +33,7 @@
                         <tbody>
                         @foreach($entry->teams as $team)
                         <tr>
-                            <td><a href="{{ route('teams.show', ['id' => $team]) }}">{{ $team->name }}</a></td>
+                            <td><a href="{{ route('teams.show', ['id' => $team]) }}">{{ $team->name }}</a>@if ($team->eliminated) (out) @endif</td>
                             <td>{{ __(':total pts', ['total' => $team->calculateTotal()]) }}</td>
                         </tr>
                         @endforeach
