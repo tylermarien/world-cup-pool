@@ -32,9 +32,9 @@ class Team extends Model
     const POINTS_FIRST_IN_GROUP = 4;
     const POINTS_SECOND_IN_GROUP = 2;
     const POINTS_THIRD_IN_GROUP = 1;
-    const POINTS_FIRST = 8;
-    const POINTS_SECOND = 5;
-    const POINTS_THIRD = 3;
+    const POINTS_FIRST = 4;
+    const POINTS_SECOND = 2;
+    const POINTS_THIRD = 1;
 
     /**
      * The attributes that are mass assignable.
