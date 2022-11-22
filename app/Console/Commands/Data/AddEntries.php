@@ -45,9 +45,11 @@ class AddEntries extends Command
           $team = Team::where(['key' => $key])->first();
           $entry->teams()->attach($team);
         }
-        foreach($value['players'] as $key) {
-          $team = Player::where(['key' => $key])->first();
-          $entry->players()->attach($team);
+        if (array_key_exists('players', $value)) {
+          foreach($value['players'] as $key) {
+            $team = Player::where(['key' => $key])->first();
+            $entry->players()->attach($team);
+          }
         }
       }
 

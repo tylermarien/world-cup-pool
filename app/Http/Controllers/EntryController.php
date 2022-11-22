@@ -29,7 +29,7 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entries = $this->entries->orderBy('total', 'desc')->get();
+        $entries = $this->entries->where('pool_id', 1)->orderBy('total', 'desc')->get();
 
         return view('entry.index', [
             'first' => $entries->get(0),
