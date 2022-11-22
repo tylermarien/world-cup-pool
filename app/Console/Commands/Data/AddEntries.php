@@ -40,7 +40,7 @@ class AddEntries extends Command
       }
 
       foreach($values as $value) {
-        $entry = Entry::create(['pool_id' => 1, 'name' => $value['name']]);
+        $entry = Entry::create(['pool_id' => $value['pool'], 'name' => $value['name']]);
         foreach($value['teams'] as $key) {
           $team = Team::where(['key' => $key])->first();
           $entry->teams()->attach($team);
