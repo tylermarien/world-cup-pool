@@ -2,6 +2,9 @@
 
 namespace Deployer;
 
+$dotenv = \Dotenv\Dotenv::createMutable(__DIR__);
+$dotenv->load();
+
 require 'recipe/laravel.php';
 
 // Project name
@@ -24,9 +27,9 @@ set('writable_chmod_mode', '0775');
 set('allow_anonymous_stats', false);
 
 // Hosts
-
-host('euro2020.tylermarien.com')
-    ->set('deploy_path', '/var/www/{{ hostname }}');
+host($_ENV['DEPLOY_HOST'])
+    ->set('remote_user', $_ENV['DEPLOY_USER'])
+    ->set('deploy_path', $_ENV['DEPLOY_PATH']);
 
 // Tasks
 
