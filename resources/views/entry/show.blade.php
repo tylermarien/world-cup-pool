@@ -41,6 +41,7 @@
                     </table>
                 </div>
 
+                @if($entry->players->isNotEmpty())
                 <div class="col-md-6">
                     <h2 class="blue"><small><i class="far fa-futbol"></i></small> {{ __('Players') }}</h2>
                     <table class="table table-condensed">
@@ -54,6 +55,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
             </div>
     </section>
 @endsection

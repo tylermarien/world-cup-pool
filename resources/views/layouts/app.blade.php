@@ -27,28 +27,38 @@
                     <img src="{{ asset('img/ball-logo.svg')}} " class="main-logo">
                 </a>
                 <a class="navbar-brand js-scroll-trigger main-logo-words" href="{{ route('entries.index') }}">
-                    World Cup <span class="red">Pool</span>
+                    {{ $pool->name }}
                 </a>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="poolToggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Switch
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="poolToggle">
+                        @foreach($pools as $pool)
+                        <a class="dropdown-item" href="{{ route('pools.toggle', $pool->id) }}">{{ $pool->name }}</a>
+                        @endforeach
+                    </div>
+                </div>
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fa fa-bars"></i>
-                </button>
+                </button> -->
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
+                    <!-- <ul class="navbar-nav ml-auto">
                         @if (Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <a class="nav-link js-scroll-trigger" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            <form id="logout-form" action="" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </li>
                         @else
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link js-scroll-trigger" href="">{{ __('Login') }}</a>
                         </li>
                         @endif
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>

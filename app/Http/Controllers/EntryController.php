@@ -27,9 +27,9 @@ class EntryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $entries = $this->entries->where('pool_id', 1)->orderBy('total', 'desc')->get();
+        $entries = $this->entries->where('pool_id', $request->session()->get('pool_id', 1))->orderBy('total', 'desc')->get();
 
         return view('entry.index', [
             'first' => $entries->get(0),
@@ -45,9 +45,9 @@ class EntryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $entries = $this->entries->all();
+        $entries = $this->entries->where('pool_id', $request->session()->get('pool_id', 1))->get();
         $entry = $this->entries->findOrFail($id);
 
         return view('entry.show', [
@@ -56,9 +56,9 @@ class EntryController extends Controller
         ]);
     }
 
-    public function compare($id1, $id2)
+    public function compare(Request $request, $id1, $id2)
     {
-        $entries = $this->entries->all();
+        $entries = $this->entries->where('pool_id', $request->session()->get('pool_id', 1))->get();
         $left = $this->entries->findOrFail($id1);
         $right = $this->entries->findOrFail($id2);
 
