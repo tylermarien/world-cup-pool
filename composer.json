@@ -6,10 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=7.4",
-        "fideloper/proxy": "^4.4",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^10.0",
         "laravel/tinker": "^2.6",
-        "laravel/ui": "^3.3",
+        "laravel/ui": "^4.0",
         "symfony/yaml": "^5.3"
     },
     "require-dev": {
@@ -18,8 +17,8 @@
         "filp/whoops": "^2.13",
         "fakerphp/faker": "^1.14",
         "mockery/mockery": "^1.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "classmap": [
@@ -58,6 +57,5 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
