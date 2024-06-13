@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+require __DIR__.'/vendor/autoload.php';
+
 $dotenv = \Dotenv\Dotenv::createMutable(__DIR__);
 $dotenv->load();
 
@@ -38,7 +40,7 @@ task('yarn', function () {
 });
 
 task('build', function () {
-    run('cd {{release_path}} && npx mix');
+    run('cd {{release_path}} && NODE_OPTIONS=--openssl-legacy-provider npx mix');
 });
 
 task('permissions', function () {
