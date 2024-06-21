@@ -29,6 +29,7 @@
                 <a class="navbar-brand js-scroll-trigger main-logo-words" href="{{ route('entries.index') }}">
                     {{ $pool->name }}
                 </a>
+                @if($pools->count() > 1)
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="poolToggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Switch
@@ -39,6 +40,7 @@
                         @endforeach
                     </div>
                 </div>
+                @endif
 
                 <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
