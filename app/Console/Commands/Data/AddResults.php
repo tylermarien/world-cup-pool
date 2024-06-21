@@ -155,7 +155,7 @@ class AddResults extends Command
           }
 
           return $previous + array_reduce($value['goals'], function ($previous, $goal) use ($player) {
-            if ($goal['player'] === $player->key) {
+            if (iconv('utf8', 'ASCII//TRANSLIT', $goal['player']) === iconv('utf8', 'ASCII//TRANSLIT', $player->key)) {
               return $previous + 1;
             }
 
