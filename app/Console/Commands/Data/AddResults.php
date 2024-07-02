@@ -163,9 +163,23 @@ class AddResults extends Command
           }, 0);
         }, 0);
 
-        $player->update(['goals' => $goals]);
-        if ($goals > 0) {
-          $this->info("{$player->name} has {$goals} goals");
+        $shootout_goals = array_reduce($values, function($previous, $value) use ($player) {
+          if (!isset($value['shootout_goals'])) {
+            return $previous;
+          }
+
+          return $previous + array_reduce($value['shootout_goals'], function ($previous, $goal) use ($player) {
+            if (iconv('utf8', 'ASCII//TRANSLIT', $goal['player']) === iconv('utf8', 'ASCII//TRANSLIT', $player->key)) {
+              return $previous + 1;
+            }
+
+            return $previous;
+          }, 0);
+        }, 0);
+
+        $player->update(['goals' => $goals, 'shootout_goals' => $shootout_goals]);
+        if ($goals > 0 || $shootout_goals > 0) {
+          $this->info("{$player->name} has {$goals} goals, and {$shootout_goals} shootout goals");
         }
       });
 

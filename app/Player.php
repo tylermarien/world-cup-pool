@@ -27,6 +27,7 @@ class Player extends Model
     use Enterable;
 
     const POINTS_GOAL = 2;
+    const POINTS_SHOOTOUT_GOAL = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +39,7 @@ class Player extends Model
         'team_id',
         'name',
         'goals',
+        'shootout_goals',
     ];
 
     /**
@@ -57,11 +59,16 @@ class Player extends Model
 
     public function calculateTotal()
     {
-        return $this->calculateGoalPoints();
+        return $this->calculateGoalPoints() + $this->calculateShootoutGoalPoints();
     }
 
     public function calculateGoalPoints()
     {
         return $this->goals * self::POINTS_GOAL;
+    }
+
+    public function calculateShootoutGoalPoints()
+    {
+        return $this->shootout_goals * self::POINTS_SHOOTOUT_GOAL;
     }
 }

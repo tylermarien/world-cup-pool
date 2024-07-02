@@ -19,6 +19,11 @@
                             <td>{{ $player->goals }}</td>
                             <td>{{ __(':points pts', ['points' => $player->calculateGoalPoints()]) }}</td>
                         </tr>
+                        <tr>
+                            <td>{{ __('Shootout Goals') }}</td>
+                            <td>{{ $player->shootout_goals }}</td>
+                            <td>{{ __(':points pts', ['points' => $player->calculateShootoutGoalPoints()]) }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
